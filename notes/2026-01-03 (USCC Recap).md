@@ -1,29 +1,29 @@
 # Winter Quest 2025 Recap
 
 ## Tools Used
-Wireshark
+### Wireshark
 - multiple .pcap files to parse through
 - utilized "follow stream" to analyze network conversations
 - discovered messages embedded in images via export objects
 - discovered hidden messages using CTRL + F within packet contents
-Powershell (later used Kali Linux VM -> bash)
+### Powershell (later used Kali Linux VM -> bash)
 - used nano to review source code
 - used grep to parse through logs
-Browser
+### Browser
 - used to identify hashes
 - used to run online JS compiler
 - used for converting data types (decode ASCII)
 
 ## Commands to Know
-find + its flags
-grep
-GET POST, etc.
+- find + its flags
+- grep
+- GET POST, etc.
 
 ## Concepts to Know
-XSS - what it is, how to identify it, how to protect against it
-Obfuscation - how to identify different types of obfuscation, how to DEAL with those types
-Networking Layers - review OSI Model; understand switch vulnerabilities
-Review OWASP Top Vulnerabilities
+- XSS - what it is, how to identify it, how to protect against it
+- Obfuscation - how to identify different types of obfuscation, how to DEAL with those types
+- Networking Layers - review OSI Model; understand switch vulnerabilities
+- Review OWASP Top Vulnerabilities
 
 ## Final Thoughts
 Overall, this was an amazing experience and I was so glad I was able to participate and dive straight into hands-on challenges. This was my first CTF **competition**, and I had way more fun that I thought. 
