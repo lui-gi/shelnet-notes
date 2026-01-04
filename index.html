@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelnet Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            overflow-y: scroll; /* Always show scrollbar to prevent layout shift */
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: #161b22;
+            border-bottom: 1px solid #30363d;
+            padding: 15px 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            font-size: 14px;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #58a6ff;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        nav a:hover { background-color: #1f6feb22; }
+        nav a.active { background-color: #1f6feb; color: white; }
+        
+        .separator { color: #484f58; margin: 0 5px; }
+
+        /* Content Area */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+
+        .markdown-body {
+            background: #0d1117;
+        }
+
+        /* List View Styling */
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+        .file-list li {
+            padding: 10px;
+            border-bottom: 1px solid #21262d;
+            display: flex;
+            justify-content: space-between;
+        }
+        .file-list li:hover { background-color: #161b22; }
+        .file-list a {
+            color: #c9d1d9;
+            text-decoration: none;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+        }
+        .file-path {
+            font-size: 0.85em;
+            color: #8b949e;
+            margin-left: 10px;
+        }
+
+        #loading, #error {
+            text-align: center;
+            margin-top: 50px;
+            font-family: monospace;
+        }
+        #error { color: #ff7b72; }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <span style="color: #8b949e; margin-right:5px;">Recent:</span>
+        <div id="recent-links" style="display:flex; gap:10px;">
+            <span style="color:#484f58">Loading...</span>
+        </div>
+        <span class="separator">|</span>
+        <a id="btn-all" onclick="loadAllNotesView()">All Notes</a>
+    </nav>
+
+    <div class="container">
+        <div id="loading" style="display:none;">Loading...</div>
+        <div id="error" style="display: none;"></div>
+        <div id="content" class="markdown-body"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+    <script>
+        const USER = 'lui-gi';
+        const REPO = 'shelnet-notes';
+        const BRANCH = 'main';
+
+        // Cache state
+        let allNotesCache = null; 
+        let recentNotesData = [];
+
+        // --- CORE FUNCTIONS ---
+
+        // 1. Initialize: Find recent notes to build the menu
+        async function init() {
+            try {
+                // Fetch commits to find the last 3 unique .md files
+                const commitsUrl = `https://api.github.com/repos/${USER}/${REPO}/commits?per_page=20`; // Fetch 20 to be safe
+                const resp = await fetch(commitsUrl);
+                if (!resp.ok) throw new Error("API Limit or Network Error");
+                const commits = await resp.json();
+
+                const uniquePaths = new Set();
+                
+                // Iterate commits to find 3 unique files
+                for (const commit of commits) {
+                    if (uniquePaths.size >= 3) break;
+
+                    const detailResp = await fetch(commit.url);
+                    const detail = await detailResp.json();
+                    
+                    for (const file of detail.files) {
+                        if (file.filename.endsWith('.md') && 
+                            !file.filename.toLowerCase().includes('readme') &&
+                            file.status !== 'removed') {
+                            
+                            if (!uniquePaths.has(file.filename)) {
+                                uniquePaths.add(file.filename);
+                                recentNotesData.push({
+                                    path: file.filename,
+                                    name: file.filename.split('/').pop().replace('.md', ''), // Clean name
+                                    url: `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${file.filename}`
+                                });
+                            }
+                        }
+                    }
+                }
+
+                renderNav();
+                // Load the very first note by default
+                if (recentNotesData.length > 0) {
+                    loadNote(recentNotesData[0].url, 0); 
+                } else {
+                    document.getElementById('content').innerHTML = "No markdown notes found.";
+                }
+
+            } catch (err) {
+                showError(err.message);
+            }
+        }
+
+        // 2. Render Navigation Links
+        function renderNav() {
+            const container = document.getElementById('recent-links');
+            container.innerHTML = '';
+            
+            recentNotesData.forEach((note, index) => {
+                const link = document.createElement('a');
+                link.innerText = (index + 1) + ". " + note.name;
+                link.id = `nav-recent-${index}`;
+                link.onclick = () => loadNote(note.url, index);
+                container.appendChild(link);
+            });
+        }
+
+        // 3. Load a specific Note (View Mode)
+        async function loadNote(rawUrl, activeIndex = -1) {
+            updateActiveNav(activeIndex);
+            showLoading(true);
+            document.getElementById('error').style.display = 'none';
+
+            try {
+                const resp = await fetch(rawUrl);
+                if (!resp.ok) throw new Error("Failed to load note content");
+                const text = await resp.text();
+                
+                document.getElementById('content').innerHTML = DOMPurify.sanitize(marked.parse(text));
+            } catch (err) {
+                showError("Could not load note.");
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // 4. Load "All Notes" List (List Mode)
+        async function loadAllNotesView() {
+            updateActiveNav('all');
+            showLoading(true);
+            document.getElementById('error').style.display = 'none';
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = ''; // Clear current note
+
+            try {
+                // Use cache if we already fetched the tree
+                if (!allNotesCache) {
+                    // Recursive tree fetch to get files in subfolders
+                    const treeUrl = `https://api.github.com/repos/${USER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
+                    const resp = await fetch(treeUrl);
+                    if (!resp.ok) throw new Error("Failed to load file tree");
+                    const data = await resp.json();
+                    
+                    // Filter for markdown only
+                    allNotesCache = data.tree.filter(item => 
+                        item.path.endsWith('.md') && 
+                        !item.path.toLowerCase().includes('readme')
+                    );
+                }
+
+                // Render the list
+                const ul = document.createElement('ul');
+                ul.className = 'file-list';
+
+                allNotesCache.forEach(file => {
+                    const li = document.createElement('li');
+                    
+                    // Logic to make the name look nice
+                    const fileName = file.path.split('/').pop().replace('.md', '');
+                    const dirPath = file.path.includes('/') ? file.path.substring(0, file.path.lastIndexOf('/')) : 'root';
+
+                    const a = document.createElement('a');
+                    a.innerHTML = `<span style="color:#58a6ff">${fileName}</span> <span class="file-path">${dirPath}</span>`;
+                    
+                    // On click, convert tree path to raw URL
+                    const rawUrl = `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${file.path}`;
+                    a.onclick = () => loadNote(rawUrl, -1); // -1 removes active state from Nav
+                    
+                    li.appendChild(a);
+                    ul.appendChild(li);
+                });
+
+                contentDiv.appendChild(ul);
+
+            } catch (err) {
+                showError(err.message);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // --- HELPERS ---
+
+        function updateActiveNav(id) {
+            // Remove active class from all
+            document.querySelectorAll('nav a').forEach(el => el.classList.remove('active'));
+            
+            if (id === 'all') {
+                document.getElementById('btn-all').classList.add('active');
+            } else if (id !== -1) {
+                const el = document.getElementById(`nav-recent-${id}`);
+                if (el) el.classList.add('active');
+            }
+        }
+
+        function showLoading(isLoading) {
+            document.getElementById('loading').style.display = isLoading ? 'block' : 'none';
+        }
+
+        function showError(msg) {
+            const el = document.getElementById('error');
+            el.innerText = msg;
+            el.style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+        }
+
+        // Start
+        init();
+    </script>
+</body>
+</html>
