@@ -35,4 +35,14 @@ After reading some of the write-ups of other users, I realized that this room co
 
 I also realized that a lot of these more seasoned users have routine they conduct for every CTF room. Some users go ahead and complete an Nmap scan, whilst others went directly to path traversal. --> in summary, I will get used to finding a routine that works the more I complete these CTFs.
 
+### Nmap scan example:
+nmap -T4 -n -sC -sV -Pn IP
+
+Flag explanations:
+- -T4 | timing; T3 is default, T4 is aggressive, T5 is unstable
+- -n | never reverse DNS resolve; by default nmap tries to resolve IPs to hostnames
+- -sC | runs NSE (Nmap Scripting Engine); basically a set of common scripts used to gather extra info, very basic
+- -sV | scans version of target
+- -Pn | does not ping; assumes host is online; [did not realize this, but CTF machines block ICMP requests, so this is a necessary flag for most Nmap scans during CTFs]
+
 :)
