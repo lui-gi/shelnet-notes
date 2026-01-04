@@ -1,5 +1,5 @@
 # Cryptography Cont.
-___
+
 ## John the Ripper
 hash-cracking tool, jumbo john is commonly used
 
