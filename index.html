@@ -169,7 +169,7 @@
 
     <header id="terminal-header">
         <div class="term-row-top">
-            <span class="term-prompt">lui-gi@shelnet<span style="color:#c9d1d9">:</span><span class="term-path">~/notes</span></span>
+            <span class="term-prompt">lui-gi@shelnet<span style="color:#c9d1d9">:</span><span id="term-path" class="term-path">~/notes</span></span>
             <a id="btn-all" class="term-cmd-btn" onclick="loadAllNotesView()">[ all notes ]</a>
         </div>
         
@@ -265,6 +265,10 @@
             document.getElementById('error').style.display = 'none';
 
             try {
+                // Update Path Display to mimic directory change
+                const fileName = rawUrl.split('/').pop().replace('.md', '');
+                updatePath(decodeURIComponent(fileName));
+
                 const resp = await fetch(rawUrl);
                 if (!resp.ok) throw new Error("Failed to load payload");
                 const text = await resp.text();
@@ -281,6 +285,8 @@
 
         function loadAllNotesView() {
             updateActiveState('all');
+            updatePath(null); // Reset path to root
+            
             const contentDiv = document.getElementById('content');
             contentDiv.innerHTML = ''; 
 
@@ -355,6 +361,17 @@
         }
 
         // --- UTILS ---
+
+        function updatePath(fileName) {
+            const pathEl = document.getElementById('term-path');
+            if (fileName) {
+                // Mimic changing into the note directory
+                pathEl.innerText = `~/notes/${fileName}`;
+            } else {
+                // Revert to root notes directory
+                pathEl.innerText = `~/notes`;
+            }
+        }
 
         function updateActiveState(id) {
             document.querySelectorAll('.term-link').forEach(el => el.classList.remove('active'));
