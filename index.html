@@ -6,38 +6,18 @@
     <title>Shelnet Notes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-dark.min.css">
     <style>
+        /* --- Base & Scrollbar --- */
         html {
             scrollbar-width: thin;
             scrollbar-color: #2196F3 #000000;
         }
-
         @supports selector(::-webkit-scrollbar) {
-            ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-            }
-
-            ::-webkit-scrollbar-track {
-            background: #000000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-
-            ::-webkit-scrollbar-thumb {
-            background: #2196F3;
-            border-radius: 4px;
-            }
-
-            ::-webkit-scrollbar-thumb:hover {
-            background: #4da1e6;
-            }
-
-            ::-webkit-scrollbar-thumb:active {
-            background: #104875;
-            }
-
-            ::-webkit-scrollbar-corner {
-            background: #000000;
-            }
+            ::-webkit-scrollbar { width: 8px; height: 8px; }
+            ::-webkit-scrollbar-track { background: #000000; border: 1px solid rgba(255, 255, 255, 0.1); }
+            ::-webkit-scrollbar-thumb { background: #2196F3; border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #4da1e6; }
+            ::-webkit-scrollbar-thumb:active { background: #104875; }
+            ::-webkit-scrollbar-corner { background: #000000; }
         }
         body {
             background-color: #0d1117;
@@ -45,94 +25,161 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            overflow-y: scroll; /* Always show scrollbar to prevent layout shift */
+            overflow-y: scroll;
         }
 
-        /* Navigation Bar */
-        nav {
+        /* --- Terminal Header --- */
+        #terminal-header {
             position: sticky;
             top: 0;
-            background-color: #161b22;
-            border-bottom: 1px solid #30363d;
-            padding: 15px 20px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            font-size: 14px;
             z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background-color: #0d1117;
+            border-bottom: 1px solid #30363d;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
-        
-        nav a {
-            text-decoration: none;
-            color: #58a6ff;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 6px;
-            transition: background 0.2s;
-        }
-        nav a:hover { background-color: #1f6feb22; }
-        nav a.active { background-color: #2196F3; color: white; }
-        
-        .separator { color: #484f58; margin: 0 5px; }
 
-        /* Content Area */
+        /* Row 1: Prompt & Command */
+        .term-row-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 15px;
+            background-color: #161b22;
+            border-bottom: 1px solid #21262d;
+            font-size: 13px;
+        }
+
+        .term-prompt {
+            color: #00c950; /* Green prompt */
+            font-weight: bold;
+        }
+        .term-path {
+            color: #2196F3; /* Blue path */
+        }
+
+        .term-cmd-btn {
+            font-size: 12px;
+            color: #8b949e;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 2px 8px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            transition: all 0.2s;
+        }
+        .term-cmd-btn:hover, .term-cmd-btn.active {
+            color: #f0f6fc;
+            background-color: #21262d;
+            border-color: #8b949e;
+        }
+
+        /* Row 2: The Output Line */
+        .term-row-bot {
+            padding: 8px 15px;
+            background-color: #0d1117;
+            font-size: 13px;
+            color: #8b949e;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        .term-link {
+            color: #58a6ff;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 0 2px;
+        }
+        .term-link:hover { text-decoration: underline; }
+        .term-link.active { color: #f2cc60; font-weight: bold; text-decoration: none; } 
+        
+        .separator { color: #484f58; margin: 0 8px; }
+
+        /* --- Content Area --- */
         .container {
             max-width: 980px;
             margin: 0 auto;
-            padding: 25px;
+            padding: 30px 25px;
         }
 
         .markdown-body {
             background: #0d1117;
         }
-
-        /* List View Styling */
-        .file-list {
-            list-style: none;
-            padding: 0;
+        
+        /* --- Search & List View --- */
+        .search-container {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 20px;
         }
-        .file-list li {
+        
+        .term-input {
+            width: 100%;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
             padding: 10px;
-            border-bottom: 1px solid #21262d;
-            display: flex;
-            justify-content: space-between;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 14px;
+            outline: none;
+            border-radius: 6px;
         }
-        .file-list li:hover { background-color: #161b22; }
+        .term-input:focus {
+            border-color: #58a6ff;
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+        }
+
+        .search-hint {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 8px;
+            font-family: monospace;
+        }
+
+        .file-list { list-style: none; padding: 0; }
+        .file-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #21262d;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 13px;
+        }
         .file-list a {
             color: #c9d1d9;
             text-decoration: none;
-            font-weight: 500;
-            width: 100%;
+            display: flex;
+            justify-content: space-between;
             cursor: pointer;
         }
-        .file-path {
-            font-size: 0.85em;
-            color: #8b949e;
-            margin-left: 10px;
-        }
+        .file-list a:hover { color: #58a6ff; }
+        .file-path-dim { color: #484f58; }
 
         #loading, #error {
             text-align: center;
             margin-top: 50px;
             font-family: monospace;
+            color: #8b949e;
         }
         #error { color: #ff7b72; }
     </style>
 </head>
 <body>
 
-    <nav id="navbar">
-        <span style="color: #8b949e; margin-right:5px;">Recent:</span>
-        <div id="recent-links" style="display:flex; gap:10px;">
-            <span style="color:#484f58">Loading...</span>
+    <header id="terminal-header">
+        <div class="term-row-top">
+            <span class="term-prompt">lui-gi@shelnet<span style="color:#c9d1d9">:</span><span class="term-path">~/notes</span></span>
+            <a id="btn-all" class="term-cmd-btn" onclick="loadAllNotesView()">[ all notes ]</a>
         </div>
-        <span class="separator">|</span>
-        <a id="btn-all" onclick="loadAllNotesView()">All Notes</a>
-    </nav>
+        
+        <div id="term-output" class="term-row-bot">
+            <span style="color:#484f58">...system_boot...</span>
+        </div>
+    </header>
 
     <div class="container">
-        <div id="loading" style="display:none;">Loading...</div>
+        <div id="loading" style="display:none;">> executing_request...</div>
         <div id="error" style="display: none;"></div>
         <div id="content" class="markdown-body"></div>
     </div>
@@ -145,53 +192,39 @@
         const REPO = 'shelnet-notes';
         const BRANCH = 'main';
 
-        // Cache state
-        let allNotesCache = null; 
+        // State
+        let allNotesCache = []; 
         let recentNotesData = [];
 
         // --- CORE FUNCTIONS ---
 
-        // 1. Initialize: Find recent notes to build the menu
         async function init() {
             try {
-                // Fetch commits to find the last 3 unique .md files
-                const commitsUrl = `https://api.github.com/repos/${USER}/${REPO}/commits?per_page=20`; // Fetch 20 to be safe
-                const resp = await fetch(commitsUrl);
-                if (!resp.ok) throw new Error("API Limit or Network Error");
-                const commits = await resp.json();
-
-                const uniquePaths = new Set();
+                // 1. Fetch File Tree
+                const treeUrl = `https://api.github.com/repos/${USER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
+                const treeResp = await fetch(treeUrl);
+                if (!treeResp.ok) throw new Error("Connection Refused: Tree Fetch Failed");
+                const treeData = await treeResp.json();
                 
-                // Iterate commits to find 3 unique files
-                for (const commit of commits) {
-                    if (uniquePaths.size >= 3) break;
+                // 2. Filter & Sort by Filename (Descending Date)
+                allNotesCache = treeData.tree
+                    .filter(item => item.path.endsWith('.md') && !item.path.toLowerCase().includes('readme'))
+                    .sort((a, b) => b.path.localeCompare(a.path)); // Newest date first
 
-                    const detailResp = await fetch(commit.url);
-                    const detail = await detailResp.json();
-                    
-                    for (const file of detail.files) {
-                        if (file.filename.endsWith('.md') && 
-                            !file.filename.toLowerCase().includes('readme') &&
-                            file.status !== 'removed') {
-                            
-                            if (!uniquePaths.has(file.filename)) {
-                                uniquePaths.add(file.filename);
-                                recentNotesData.push({
-                                    path: file.filename,
-                                    name: file.filename.split('/').pop().replace('.md', ''), // Clean name
-                                    url: `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${file.filename}`
-                                });
-                            }
-                        }
-                    }
-                }
+                // 3. Extract Top 3 for "Recent" Stack
+                recentNotesData = allNotesCache.slice(0, 3).map(file => ({
+                    path: file.path,
+                    name: file.path.split('/').pop().replace('.md', ''),
+                    url: `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${file.path}`
+                }));
 
-                renderNav();
-                // Load the very first note by default
+                renderTerminalLine();
+                
+                // Load the most recent note by default
                 if (recentNotesData.length > 0) {
                     loadNote(recentNotesData[0].url, 0); 
                 } else {
-                    document.getElementById('content').innerHTML = "No markdown notes found.";
+                    document.getElementById('content').innerHTML = "> No markdown notes found.";
                 }
 
             } catch (err) {
@@ -199,99 +232,133 @@
             }
         }
 
-        // 2. Render Navigation Links
-        function renderNav() {
-            const container = document.getElementById('recent-links');
-            container.innerHTML = '';
+        function renderTerminalLine() {
+            const container = document.getElementById('term-output');
+            container.innerHTML = ''; 
             
+            const prefix = document.createElement('span');
+            prefix.innerText = "> recent: ";
+            prefix.style.color = "#484f58";
+            container.appendChild(prefix);
+
             recentNotesData.forEach((note, index) => {
+                if (index > 0) {
+                    const sep = document.createElement('span');
+                    sep.className = 'separator';
+                    sep.innerText = "|";
+                    container.appendChild(sep);
+                }
+
                 const link = document.createElement('a');
-                link.innerText = (index + 1) + ". " + note.name;
+                link.className = 'term-link';
                 link.id = `nav-recent-${index}`;
+                link.innerText = note.name;
                 link.onclick = () => loadNote(note.url, index);
+                
                 container.appendChild(link);
             });
         }
 
-        // 3. Load a specific Note (View Mode)
         async function loadNote(rawUrl, activeIndex = -1) {
-            updateActiveNav(activeIndex);
+            updateActiveState(activeIndex);
             showLoading(true);
             document.getElementById('error').style.display = 'none';
 
             try {
                 const resp = await fetch(rawUrl);
-                if (!resp.ok) throw new Error("Failed to load note content");
+                if (!resp.ok) throw new Error("Failed to load payload");
                 const text = await resp.text();
                 
                 document.getElementById('content').innerHTML = DOMPurify.sanitize(marked.parse(text));
             } catch (err) {
-                showError("Could not load note.");
+                showError("Content retrieval failed.");
             } finally {
                 showLoading(false);
             }
         }
 
-        // 4. Load "All Notes" List (List Mode)
-        async function loadAllNotesView() {
-            updateActiveNav('all');
-            showLoading(true);
-            document.getElementById('error').style.display = 'none';
+        // --- SEARCH & ALL NOTES VIEW ---
+
+        function loadAllNotesView() {
+            updateActiveState('all');
             const contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = ''; // Clear current note
+            contentDiv.innerHTML = ''; 
 
-            try {
-                // Use cache if we already fetched the tree
-                if (!allNotesCache) {
-                    // Recursive tree fetch to get files in subfolders
-                    const treeUrl = `https://api.github.com/repos/${USER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
-                    const resp = await fetch(treeUrl);
-                    if (!resp.ok) throw new Error("Failed to load file tree");
-                    const data = await resp.json();
-                    
-                    // Filter for markdown only
-                    allNotesCache = data.tree.filter(item => 
-                        item.path.endsWith('.md') && 
-                        !item.path.toLowerCase().includes('readme')
-                    );
-                }
+            // Search UI
+            const searchContainer = document.createElement('div');
+            searchContainer.className = 'search-container';
+            
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'term-input';
+            input.placeholder = 'filter "search_query"';
+            input.addEventListener('input', (e) => handleSearch(e.target.value));
 
-                // Render the list
-                const ul = document.createElement('ul');
-                ul.className = 'file-list';
+            const hint = document.createElement('div');
+            hint.className = 'search-hint';
+            hint.innerText = "> Type to filter titles.";
 
-                allNotesCache.forEach(file => {
-                    const li = document.createElement('li');
-                    
-                    // Logic to make the name look nice
-                    const fileName = file.path.split('/').pop().replace('.md', '');
-                    const dirPath = file.path.includes('/') ? file.path.substring(0, file.path.lastIndexOf('/')) : 'root';
+            searchContainer.appendChild(input);
+            searchContainer.appendChild(hint);
+            contentDiv.appendChild(searchContainer);
 
-                    const a = document.createElement('a');
-                    a.innerHTML = `<span style="color:#58a6ff">${fileName}</span> <span class="file-path">${dirPath}</span>`;
-                    
-                    // On click, convert tree path to raw URL
-                    const rawUrl = `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${file.path}`;
-                    a.onclick = () => loadNote(rawUrl, -1); // -1 removes active state from Nav
-                    
-                    li.appendChild(a);
-                    ul.appendChild(li);
-                });
+            // Results Container
+            const listContainer = document.createElement('div');
+            listContainer.id = 'file-list-container';
+            contentDiv.appendChild(listContainer);
 
-                contentDiv.appendChild(ul);
-
-            } catch (err) {
-                showError(err.message);
-            } finally {
-                showLoading(false);
-            }
+            // Initial Render (All Files)
+            renderFileList(allNotesCache);
         }
 
-        // --- HELPERS ---
+        function handleSearch(query) {
+            const lowerQuery = query.toLowerCase();
 
-        function updateActiveNav(id) {
-            // Remove active class from all
-            document.querySelectorAll('nav a').forEach(el => el.classList.remove('active'));
+            // Local Title Filter (Instant)
+            const matches = allNotesCache.filter(item => 
+                item.path.toLowerCase().includes(lowerQuery)
+            );
+
+            renderFileList(matches);
+        }
+
+        function renderFileList(files) {
+            const container = document.getElementById('file-list-container');
+            container.innerHTML = '';
+
+            if (files.length === 0) {
+                container.innerHTML = '<div style="color:#8b949e; font-family:monospace;">> No matches found.</div>';
+                return;
+            }
+
+            const ul = document.createElement('ul');
+            ul.className = 'file-list';
+
+            files.forEach(file => {
+                const li = document.createElement('li');
+                
+                const fileName = file.path.split('/').pop().replace('.md', '');
+                const dirPath = file.path.includes('/') ? file.path.substring(0, file.path.lastIndexOf('/')) : './';
+
+                const a = document.createElement('a');
+                
+                a.innerHTML = `<span>${fileName}</span> <span class="file-path-dim">${dirPath}</span>`;
+                
+                const rawUrl = `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/${file.path}`;
+                a.onclick = () => loadNote(rawUrl, -1);
+                
+                li.appendChild(a);
+                ul.appendChild(li);
+            });
+
+            container.appendChild(ul);
+        }
+
+        // --- UTILS ---
+
+        function updateActiveState(id) {
+            document.querySelectorAll('.term-link').forEach(el => el.classList.remove('active'));
+            document.getElementById('btn-all').classList.remove('active');
             
             if (id === 'all') {
                 document.getElementById('btn-all').classList.add('active');
@@ -307,12 +374,11 @@
 
         function showError(msg) {
             const el = document.getElementById('error');
-            el.innerText = msg;
+            el.innerText = `[ERR]: ${msg}`;
             el.style.display = 'block';
             document.getElementById('loading').style.display = 'none';
         }
 
-        // Start
         init();
     </script>
 </body>
