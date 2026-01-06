@@ -43,6 +43,6 @@ Flag explanations:
 - -n | never reverse DNS resolve; by default nmap tries to resolve IPs to hostnames
 - -sC | runs NSE (Nmap Scripting Engine); basically a set of common scripts used to gather extra info, very basic
 - -sV | scans version of target
-- -Pn | does not ping; assumes host is online; [did not realize this, but CTF machines block ICMP requests, so this is a necessary flag for most Nmap scans during CTFs]
+- -Pn | does not ping; assumes host is online; [did not realize this, but a lot of CTF machines block ICMP requests, so this is a necessary flag for most Nmap scans during CTFs]
 
 :)
