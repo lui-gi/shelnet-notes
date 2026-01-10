@@ -200,16 +200,13 @@
 
         async function init() {
             try {
-                // 1. Fetch File Tree
-                const treeUrl = `https://api.github.com/repos/${USER}/${REPO}/git/trees/${BRANCH}?recursive=1`;
-                const treeResp = await fetch(treeUrl);
-                if (!treeResp.ok) throw new Error("Connection Refused: Tree Fetch Failed");
-                const treeData = await treeResp.json();
-                
-                // 2. Filter & Sort by Filename (Descending Date)
-                allNotesCache = treeData.tree
-                    .filter(item => item.path.endsWith('.md') && !item.path.toLowerCase().includes('readme'))
-                    .sort((a, b) => b.path.localeCompare(a.path)); // Newest date first
+                // 1. Fetch Notes Index (static JSON for CORS compatibility)
+                const indexUrl = `https://raw.githubusercontent.com/${USER}/${REPO}/${BRANCH}/notes.json`;
+                const indexResp = await fetch(indexUrl);
+                if (!indexResp.ok) throw new Error("Connection Refused: Index Fetch Failed");
+
+                // 2. Notes are pre-sorted in notes.json (newest first)
+                allNotesCache = await indexResp.json();
 
                 // 3. Extract Top 3 for "Recent" Stack
                 recentNotesData = allNotesCache.slice(0, 3).map(file => ({
