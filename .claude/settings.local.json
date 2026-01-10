@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python sync_notes.py:*)"
-    ]
-  }
-}
