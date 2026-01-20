@@ -106,3 +106,5 @@ We need a unified language to govern/cross different platforms.
 - one of the oldest, most maturely developed languages that interact with machine code
 
 Python is not a compiler language, unlike C.
+
+High-level language (like C) --Compiler--> Assembly language program (like RISC-V) --Assembler-->  Binary machine language program (0s, 1s)
