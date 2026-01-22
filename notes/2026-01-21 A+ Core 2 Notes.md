@@ -473,7 +473,6 @@ always isolate host if infected, get it away from the rest of the network
 
 practice test 1
 
-Of course. Here is a list of the topics we've covered:
 
 • rm -rf command 111
 
@@ -596,8 +595,6 @@ the difference:
 change request
 
 Elements of a Change Request
-
-For the exam, you should be familiar with the common elements included in a change request form and the overall management process. These typically include:
 
 • **Purpose of the Change:** A clear reason why the change is necessary, such as applying a security fix or upgrading an applicaiton.
 
