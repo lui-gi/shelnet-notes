@@ -83,3 +83,10 @@ octal      6         4           4
 ```
 - like on/off switch
 - assume any combo of perms is possible
+
+users rwx
+111 = 7
+g rw-
+110 = 6
+o -wx
+011
