@@ -134,4 +134,20 @@ Renaming files actually means to change labels in the file hierarchy
 `cp -ir <dir> <dir>`
 - needs to be recursive to move entire directories
 
-``
+## Removing with `rm` and `rmdir`
+
+`rm <file-spec-list>`
+- `-f`: force (no prompts/messages)
+- `-i`: inquire
+- `-r`: recursive
+`rmdir` `<dir-list`
+- removes directory
+- only works if dir is empty
+
+## Word count with `wc`
+
+`wc -clw <file-spec>`
+- `c` counts bytes
+- `l` counts newline characters
+- `w` prints word counts
+
