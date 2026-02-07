@@ -1,77 +1,77 @@
 [
   {
-    "path": "notes/2026-02-05 C pt2.md"
+    "path": "notes/2026-02-05 C Data Types and Type Casting.md"
   },
   {
-    "path": "notes/2026-02-03 C Pt1.md"
+    "path": "notes/2026-02-03 C Fundamentals and Compilation.md"
   },
   {
-    "path": "notes/2026-02-02 Text Processing Utils.md"
+    "path": "notes/2026-02-02 awk and Shell Scripting.md"
   },
   {
-    "path": "notes/2026-01-29 RegEx Special Characters.md"
+    "path": "notes/2026-01-29 Regular Expression Metacharacters.md"
   },
   {
-    "path": "notes/2026-01-27 UnixUtils+IntroC.md"
+    "path": "notes/2026-01-27 vi Editor and Regular Expressions.md"
   },
   {
-    "path": "notes/2026-01-27 NCL Gym1.md"
+    "path": "notes/2026-01-27 NCL Gym OSINT and Threat Intel.md"
   },
   {
-    "path": "notes/2026-01-22 Unix Utils pt2.md"
+    "path": "notes/2026-01-22 Unix File Permissions and chmod.md"
   },
   {
-    "path": "notes/2026-01-21 Compiling with GCC.md"
+    "path": "notes/2026-01-21 GCC Compiler Flags.md"
   },
   {
     "path": "notes/2026-01-21 A+ Core 2 Notes.md"
   },
   {
-    "path": "notes/2026-01-20 Unix Utilities.md"
+    "path": "notes/2026-01-20 Unix Shell Commands.md"
   },
   {
-    "path": "notes/2026-01-20 Encoding Intro.md"
+    "path": "notes/2026-01-20 Encoding and Turing Machines.md"
   },
   {
-    "path": "notes/2026-01-17 Sec+ 1.1 Notes.md"
+    "path": "notes/2026-01-17 Security+ Security Controls.md"
   },
   {
-    "path": "notes/2026-01-15 Unix Intro.md"
+    "path": "notes/2026-01-15 Unix OS Fundamentals.md"
   },
   {
-    "path": "notes/2026-01-15 CompOrg Chap1.md"
+    "path": "notes/2026-01-15 Transistors and Semiconductors.md"
   },
   {
-    "path": "notes/2026-01-13 System Level Programming Intro.md"
+    "path": "notes/2026-01-13 System Level Programming Syllabus.md"
   },
   {
-    "path": "notes/2026-01-13 SysLevel-1.md"
+    "path": "notes/2026-01-13 System Level Programming Fundamentals.md"
   },
   {
-    "path": "notes/2026-01-13 Computer Org Intro.md"
+    "path": "notes/2026-01-13 Computer Organization Course Overview.md"
   },
   {
-    "path": "notes/2026-01-06 Metasploit-msfvenom.md"
+    "path": "notes/2026-01-06 Msfvenom Payloads and Handlers.md"
   },
   {
-    "path": "notes/2026-01-05 Steganography Practice Lab.md"
+    "path": "notes/2026-01-05 Steganography CTF Techniques.md"
   },
   {
-    "path": "notes/2026-01-05 Metasploit Pt3.md"
+    "path": "notes/2026-01-05 Metasploit Scanning and Database.md"
   },
   {
-    "path": "notes/2026-01-04 Intro LFI CTF Writeup.md"
+    "path": "notes/2026-01-04 TryHackMe Lo-Fi LFI Writeup.md"
   },
   {
-    "path": "notes/2026-01-04 Exploitation Cont..md"
+    "path": "notes/2026-01-04 Metasploit Modules and Commands.md"
   },
   {
-    "path": "notes/2026-01-03 Exploitation.md"
+    "path": "notes/2026-01-03 Winter Quest 2025 CTF Recap.md"
   },
   {
-    "path": "notes/2026-01-03 Cryptography.md"
+    "path": "notes/2026-01-03 Moniker Link CVE and Metasploit Intro.md"
   },
   {
-    "path": "notes/2026-01-03 (USCC Recap).md"
+    "path": "notes/2026-01-03 John the Ripper Hash Cracking.md"
   }
 ]
