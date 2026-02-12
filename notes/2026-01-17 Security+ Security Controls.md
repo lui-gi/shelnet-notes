@@ -4,7 +4,7 @@
 **Categories**
 
 * **Category Explained:** Categories define the *means* of implementation. When looking at a control, ask yourself: "Is this a computer script, a written rule, a human action, or a physical barrier?"  
-  * **Technical:** Often called logical controls. These are implemented by systems, hardware, or software to restrict access or offer protection. Examples include Firewalls, Antivirus, Encryption, and Access Control Lists (ACLs).  
+  * **Technical:** Often called logical controls. These are implemented by systems, hardware, or software to restrict access or offer protection. Examples include Firewalls, Antivirus, Encryption (see [[2026-02-11 SSL Certificates|SSL/TLS]]), and Access Control Lists (ACLs).  
   * **Managerial:** Often called administrative controls. These are the "paperwork" and oversight of security. They focus on risk management \[managing risk\] and policy creation. Examples include Risk Assessments, Security Policies, Standard Operating Procedures (SOPs), Security Awareness Training, Organizational security policy.  
   * **Operational:** These are the "people" controls. They represent the day-to-day actions performed by humans to support the security goals. Examples include Security Guards, Awareness Training, Incident Response teams, Configuration Management  
   * **Physical:** Controls you can touch that prevent physical access to assets. Examples include Fences, Locks, Bollards, and Lighting.  

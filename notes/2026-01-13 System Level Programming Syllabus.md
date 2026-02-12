@@ -1,9 +1,9 @@
 # SysLevel Concept Outline 
 ## Table of Contents
-- Unix utils
-- Basic shell scripts
+- [[2026-01-20 Unix Shell Commands|Unix commands]]
+- Basic [[2026-02-02 awk and Shell Scripting|shell scripting]]
 - C program
-- System programming: file management
+- System programming: file management (see [[2026-01-22 Unix File Permissions and chmod|chmod]])
 - System programming: process management
 
 ## Unix
@@ -16,7 +16,7 @@ Why Unix? (/Unix-like, such as Linux)
 
 ## C
 
-Why C?
+Why C? (see [[2026-02-03 C Fundamentals and Compilation|C fundamentals]])
 - provides direct access to system resources
 - C can manipulate hardware resources
 - used to write drivers, firmware, other critical software

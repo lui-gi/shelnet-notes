@@ -35,7 +35,7 @@ In between conductors and insulators:
 --> Semi-conductors
 - we use this materials to control the flow of the current. due to Eg = 0.1-3.0 eV
 Semiconductors: Si, Ge, Ga, As, In, P, Ga, N
-Semiconductor devices: Transistors, solar cells, muLEDs, TFTs
+Semiconductor devices: Transistors, solar cells, muLEDs, TFTs (see [[2026-01-20 Encoding and Turing Machines|digital encoding]] for how this enables computation)
 
 True insulators don't exist, given enough eV, electricity will travel through insulators
 

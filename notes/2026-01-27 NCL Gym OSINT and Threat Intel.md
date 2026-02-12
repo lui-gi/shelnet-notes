@@ -33,14 +33,14 @@ NS:
 
 ### Threat Intel
 
-CVE: Common Vulnerabilities and Exposures
+CVE: Common Vulnerabilities and Exposures (see [[2026-01-03 John the Ripper Hash Cracking|hash cracking]] for working with discovered hashes)
 - industry-standard
 - publicly disclosed
 - large large large list of cybersecurity vulnerabilities in software and hardware
 
 --> use nvd.nist.gov or cve.org
 
-- cisa.gov: allowed me to find the first 1.0.1 version of OpenSSL that was not affected by heartbleed
+- cisa.gov: allowed me to find the first 1.0.1 version of OpenSSL that was not affected by heartbleed (see [[2026-02-11 SSL Certificates|SSL certificates]])
 - RFC 854: describes Telnet (first RFC num)
 - SQL Slammer worm, 2003: it payload = 376 bytes; its tiny size allowed all of the malicious code to fit into a single UDP packet
 - samy: computer worm; carries a payload that displays 'but most of all, samy is my hero"

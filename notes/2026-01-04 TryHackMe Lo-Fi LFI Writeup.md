@@ -29,7 +29,7 @@ Got the flag and completed the room.
 
 - Do more reading on LFI and LFI Path Traversal
 - Figure out the common # of levels it takes to reach root directory
-- Find out another way to complete the room, maybe using curl or netcat listener to reverse shell
+- Find out another way to complete the room, maybe using curl or netcat listener to reverse shell (see [[2026-01-04 Metasploit Modules and Commands|Metasploit]])
 
 After reading some of the write-ups of other users, I realized that this room could easily be automated with a custom python script. I'll look into that later -> a lot of these scripts involve a .txt file that includes common paths for path traversal. I'll definitely make one soon.
 

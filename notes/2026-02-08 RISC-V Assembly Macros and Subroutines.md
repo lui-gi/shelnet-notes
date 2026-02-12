@@ -1,7 +1,7 @@
 # RISC-V Assembly Macros and Subroutines
 
 ## quick aside ()
-First, we know what register is used to handle operations.
+First, we know what register is used to handle operations (see [[2026-01-13 Computer Organization Course Overview|computer organization]] for architecture context).
 - in CPUlator, the register used for operations is a7 (RV32)
 
 We then also need to know what values that register understands as certain operations.

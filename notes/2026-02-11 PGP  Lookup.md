@@ -9,7 +9,7 @@ Pretty Good Privacy: it is an encryption program that provides cryptographic pri
 
 ## How it Works
 
-Asymmetric Encryption;
+Asymmetric Encryption (see also [[2026-02-11 SSL Certificates|SSL/TLS]]);
 - public key; anyone can use it to encrypt a message to send to you OR to verify a signature that YOU made
 - private key; secret key that only you can use to decrypt messages sent to YOU or to sign messages to prove that they came from YOU
 

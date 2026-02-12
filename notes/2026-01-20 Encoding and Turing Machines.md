@@ -73,7 +73,7 @@ Encoding: representing something physical -> enumerates it to abstract concept, 
 - non-excited state = 0
 
 We now have a device = Binary State Machine
---> This device is called a **transistor**
+--> This device is called a **[[2026-01-15 Transistors and Semiconductors|transistor]]**
 
 #look-up logic gates, transistors, encoders, read transistors in textbook, chap 4
 
@@ -84,7 +84,7 @@ Different layers of abstractions built on top of each other; altogether they can
 High-level language
 - level of abstraction closer to problem domain
 - provides for productivity and portability
-Assembly language
+Assembly language (see [[2026-01-13 Computer Organization Course Overview|computer organization]])
 - textual representation of instructions
 Hardware representation
 - binary digits (bits)
@@ -107,4 +107,4 @@ We need a unified language to govern/cross different platforms.
 
 Python is not a compiler language, unlike C.
 
-High-level language (like C) --Compiler--> Assembly language program (like RISC-V) --Assembler-->  Binary machine language program (0s, 1s)
+High-level language (like [[2026-02-03 C Fundamentals and Compilation|C compilation]]) --Compiler--> Assembly language program (like RISC-V) --Assembler-->  Binary machine language program (0s, 1s)

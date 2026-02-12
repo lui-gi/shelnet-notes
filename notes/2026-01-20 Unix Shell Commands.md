@@ -63,11 +63,11 @@ Give program end of file: `^D`
 ## More common utils
 
 Word count: `wc` 
-File permissions:`file, groups, chgrp, chmod`
+File permissions:`file, groups, chgrp, ` [[2026-01-22 Unix File Permissions and chmod|chmod]]
 Directories: `mkdir, rmdir, cd, pwd`
 File manipulating: `mv, cp, rm`
 File contents: `cat, more, page, head, tail`
-Text editors: `nano, vi, emacs`
+Text editors: `nano,` [[2026-01-27 vi Editor and Regular Expressions|vi editor]]`, emacs`
 
 ## Pathnames
 

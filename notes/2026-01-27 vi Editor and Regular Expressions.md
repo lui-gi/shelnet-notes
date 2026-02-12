@@ -99,7 +99,7 @@ Miscellaneous:
 - CTRL-L redraw screen
 - `:!<cmd>` execute shell command
 
-## Regular Expression | regex
+## Regular Expression | regex (see [[2026-01-29 Regular Expression Metacharacters|regex metacharacters]] for special characters)
 
 - a pattern describing a certain amount of text
 - a 'match' is a piece of text that pattern was found to correspond to by the ==regex== processing software
@@ -134,7 +134,7 @@ PRACTICE:
 - MM-DD-YY
 - (123)-456-7890
 
-## grep: general/global regex print
+## [[2026-01-20 Unix Shell Commands|grep]]: general/global regex print
 
 - `-E` flag for 'extended': allows the use of extended regular expressions (EREs) for pattern matching
 - ^ sometimes, we have to use the `-P` flag (Perl-Compatible RegEx)

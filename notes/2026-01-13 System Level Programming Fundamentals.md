@@ -18,7 +18,7 @@ directory: still a FILE, just one that contains other files
 
 OS = software written with programming language, big "master" program
 
-Course: Learn fundamentals of C first -> Communicating with Unix/Linux
+Course: Learn fundamentals of [[2026-02-03 C Fundamentals and Compilation|C programming]] first -> Communicating with [[2026-01-15 Unix OS Fundamentals|Unix]]/Linux
 
 ## Outline
 *top to bottom*
@@ -37,7 +37,7 @@ computer hardware
 - paper exams, concept-based
 - 2 pop quiz drops, total 7-8 
 - allowed one handwritten, double-sided A4 paper
-- we use [gcc compiler], no IDEs only terminals in course
+- we use [[2026-01-21 GCC Compiler Flags|GCC]] compiler, no IDEs only terminals in course
 #look-up installing/usage of gcc compiler
 --> ssh into the uni's server
 

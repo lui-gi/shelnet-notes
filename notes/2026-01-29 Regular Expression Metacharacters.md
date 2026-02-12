@@ -15,7 +15,7 @@ noun, verb has a special meaning
 `He eats food`
 Each individual word has no special meaning.
 
-In regex, literals can be treated as *words* and special characters can be treated as *grammar*
+In regex, literals can be treated as *words* and special characters can be treated as *grammar* (see also [[2026-02-02 awk and Shell Scripting|awk]] for regex in text processing)
 
 ## Delimiters
 
@@ -92,7 +92,7 @@ Other examples:
 - \s = White space
 - \S =
 
-## grep
+## grep (see also [[2026-01-27 vi Editor and Regular Expressions|grep and vi]])
 Find all lines containing the word 'error' in a log file:
 `grep "error" /var/log/syslog`
 

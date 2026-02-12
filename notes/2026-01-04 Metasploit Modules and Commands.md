@@ -9,7 +9,7 @@ Vulnerability: flaw in the design of the target machine that allows attackers to
 Payload: code that run on the target machine; more specific use of exploit, allows us to specify the outcome we want such as gaining access to confidential info
 
 ## Modules
-Auxiliary: supporting modules like crawlers and scanners
+Auxiliary: supporting modules like crawlers and [[2026-01-05 Metasploit Scanning and Database|scanning modules]]
 
 Encoders: allows the attacker to "encode" the exploit/payload, this attempts to bypass signature-based antivirus software
 - signature-based antivirus compare suspicious files to their large database of known threats
@@ -20,7 +20,7 @@ Exploits
 
 NOPs: No OPeration; does nothing, so it is useful to "cushion" a long stream of payloads
 
-Payloads: code that runs on the target machine, executed to achieve desired result
+Payloads: code that runs on the target machine, executed to achieve desired result (see [[2026-01-06 Msfvenom Payloads and Handlers|Msfvenom]] for payload generation)
 - Adapters: converts payloads to different format (example: we can wrap a normal payload inside a bash adapter -> one bash command that executes the entire payload)
 - Singles: no additional components needed to run (no additional download)
 - Stages: allows us to use large payloads; stages are downloaded by a stager

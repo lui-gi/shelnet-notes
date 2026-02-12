@@ -39,7 +39,7 @@ SMB request as done in the hands-on can be seen in a packet capture using Wiresh
 most widely used exploitation framework
 
 - msfconsole
-- modules
+- [[2026-01-04 Metasploit Modules and Commands|Metasploit modules]]
 - tools
 
 

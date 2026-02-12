@@ -1,6 +1,6 @@
 # C pt2
 
-**Keywords** can't be used as **identifiers** (variable names)
+**Keywords** can't be used as **identifiers** (variable names) see [[2026-02-03 C Fundamentals and Compilation|C fundamentals]] for basics
 
 ex:
 - auto

@@ -2,7 +2,7 @@
 
 ## File Attributes
 
-use `ls -lsF filename` to see long list of all file attributes
+use `ls -lsF filename` to see long list of all file attributes (see [[2026-01-20 Unix Shell Commands|shell commands]] for more on `ls`)
 - `-l`: long listing
 - `-s`: size of file
 - `-F`: display indicators such as a slash (‘/’) immediately after each pathname

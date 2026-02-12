@@ -10,7 +10,7 @@
 - RHOSTS (target)
 - THREADS (more = faster)
 
-we can perform nmap scans from msfconsole prompt
+we can perform [[2026-01-04 TryHackMe Lo-Fi LFI Writeup|Nmap]] scans from msfconsole prompt
 - note: msfconsole is not the most optimal way for speedy port scanning
 
 
@@ -68,7 +68,7 @@ Escalate by scanning for open ports + vulnerabilities
 - useful to find http, ftp, smb, ssh, rdp
 
 ## Vulnerability
-reminder: exploit is the "how" and payloads are the "what"
+reminder: exploit is the "how" and payloads are the "what" (see [[2026-01-04 Metasploit Modules and Commands|modules]] for details)
 
 -> as such, exploits in msfconsole have their designated payloads
 `set payload`

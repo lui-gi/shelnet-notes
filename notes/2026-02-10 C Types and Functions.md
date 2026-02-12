@@ -1,6 +1,6 @@
 # C Types Cont. and Common Functions
 
-## User-defined types
+## User-defined types (builds on [[2026-02-05 C Data Types and Type Casting|C data types]])
 `typedef` gives names to types
 - good for making programs more human-understandable
 - allows us to 'create' our own data type
@@ -38,7 +38,7 @@ person people;
 
 ## Formatted Input/Output
 
-read input: `scanf`
+read input: `scanf` (see [[2026-02-03 C Fundamentals and Compilation|C fundamentals]] for basics)
 - `scanf("%d", &x)`
 - Read an integer (%d) and put it into the address of x
 

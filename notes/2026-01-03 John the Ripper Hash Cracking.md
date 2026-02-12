@@ -45,9 +45,9 @@ NTLM format hashes -> use NT flag
 ## More Cracking
 
 /etc/shadow
-- where Linux machine passwords are stored
+- where Linux machine passwords are stored (see [[2026-01-15 Unix OS Fundamentals|Unix]] for OS context)
 - also stores additional info regarding passwd, like date modified & expiration
-- root access
+- root access (see [[2026-01-22 Unix File Permissions and chmod|file permissions]])
 
 john requires shadow + passwd due to formatting issues
 john no format = john --wordlist= target.txt

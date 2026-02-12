@@ -3,7 +3,7 @@
 
 ## Metadata
 
-all images contain metadata -> also known as EXIF data
+all images contain metadata -> also known as EXIF data (see [[2026-01-27 NCL Gym OSINT and Threat Intel|OSINT techniques]] for more on metadata extraction)
 - contains information about GPS location, timestamp, etc.
 - we can inject custom text into these fields without changing the visual image 
 
@@ -36,7 +36,7 @@ use `file` to verify the file type of everything, extensions can be misleading
 
 `strings` + `exiftool`
 
-`binwalk` to scan hex code for notable bytes
+`binwalk` to scan hex code for notable bytes (use [[2026-01-27 vi Editor and Regular Expressions|regular expressions]] with grep to filter results)
 
 sometimes text can be hidden within the visual image but is not visible to the human eye, we can use an external tool to find these
 - StegSolve

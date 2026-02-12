@@ -89,7 +89,7 @@ Data analysis is a function of the application programs, not the OS kernel
 
 Operating System
 - controls all machine activities
-- shell/terminal (passes commands to the kernel)
+- [[2026-01-20 Unix Shell Commands|shell commands]]/terminal (passes commands to the kernel)
 - controls all machine activities
 - store and retrieve files
 - providers the user interface to the computer
@@ -236,7 +236,7 @@ When a program runs in main memory, it is a process.
 Process = in action
 
 - most processes read/write data from/to files
-- processes and files have an **owner**
+- processes and files have an **owner** (see [[2026-01-22 Unix File Permissions and chmod|file permissions]])
 
 Unix context:
 - support hierarchical dir structure

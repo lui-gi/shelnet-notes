@@ -1,6 +1,6 @@
 # C Fundamentals
 Characteristics:
-- low level, small (relies on library for std functions), permissive (doesn't prevent you from making mistakes, assumes you know what you are doing)
+- low level, small (relies on library for std functions), permissive (doesn't prevent you from making mistakes, assumes you know what you are doing) used extensively in [[2026-01-13 System Level Programming Fundamentals|system-level programming]]
 
 Pros:
 C is also portable and efficient (can be transferred over very easily). 
@@ -25,7 +25,7 @@ int main(void) // main function for our outputs
 ANY line that starts with # is a preprocessor directive. (headers)
 --> instructions to the compiler before the actual compilation begins
 
-## Compiling and Linking
+## Compiling and Linking (see [[2026-01-21 GCC Compiler Flags|GCC compiler]] for flags)
 Before execution of a program:
 1) **preprocessing**: obeys directives (#)
 2) **compiling**: translates the program to machine instructions (object code)

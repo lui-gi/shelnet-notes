@@ -3,9 +3,9 @@
 *Note: first time using RISC-V instead of x86 as assembly / base material*
 
 ## Overview
-- theoretical understanding of how computers work at the base hardware level
+- theoretical understanding of how computers work at the base hardware level (see [[2026-01-15 Transistors and Semiconductors|transistors]])
 - lectures focus on theoretical foundation of computer architecture
-- RISC-V assembly language
+- [[2026-02-08 RISC-V Assembly Macros and Subroutines|RISC-V assembly]] language
 
 RISC: Reduced Instruction Set Computing
 #look-up RISC-V vs. x86
@@ -22,7 +22,7 @@ RISC: Reduced Instruction Set Computing
 - class avg Fall '24 --> ~50%
 # Course Outline
 
-## Data Representation + Arithmetic
+## Data Representation + Arithmetic (see [[2026-01-20 Encoding and Turing Machines|encoding]])
 Understanding how computers store and manipulate nums at the bit level
 - binary and hexadecimal arithmetic
 - signed vs. unsigned arithmetic

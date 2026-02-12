@@ -10,7 +10,7 @@ int main (int argc, char *argv[]) {
  }
 ```
 
-**gcc** --> the GNU C compiler
+**gcc** --> the GNU C compiler (see [[2026-02-03 C Fundamentals and Compilation|C compilation]] for the full pipeline)
 - GNU = Unix-like OS / collection of free software
 
 ## `gcc` usage
@@ -20,7 +20,7 @@ int main (int argc, char *argv[]) {
 - creates an executable file named executable_file (default is a.out)
 - used during compilation or linking to name the final binary
 
-`-S`: tells GCC compiler to stop after generating assembly code (file.c --> file.s); creates .s file from OUR source code
+`-S`: tells GCC compiler to stop after generating [[2026-02-08 RISC-V Assembly Macros and Subroutines|assembly]] code (file.c --> file.s); creates .s file from OUR source code
 - converts C source code to human-readable assembly language
 - STOPS after generating assembly (compilation stage) but BEFORE the assembly and linking stages
 
@@ -28,6 +28,8 @@ int main (int argc, char *argv[]) {
 - `gcc -c hello.s`
 
 `-v`: verbose; prints detailed info about the compilation process, showing the version numbers of the compiler components + the actual cmds executed for each stage (preprocessing, compiling, assembling, linking) as they run
+
+`-lm`: link math.h
 
 #look-up flows
 ## Other

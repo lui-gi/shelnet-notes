@@ -2,7 +2,7 @@
 
 ## awk
 - a powerful text processing tool
-- uses extended RegEx to find lines that match criteria
+- uses extended [[2026-01-29 Regular Expression Metacharacters|regular expressions]] to find lines that match criteria
 
 `awk '{print $3, $1, $2}' students_gpa.txt`
 - prints 3rd, 1st, and 2nd columns of a file (in that order)
@@ -125,7 +125,7 @@ print "------------------"}
 END {print "----------------"}
 ```
 
-## Shell Programming
+## Shell Programming (see [[2026-01-20 Unix Shell Commands|shell commands]] for command basics)
 Executes shell script to do many tasks at once (runs many commands at once)
 
 ```

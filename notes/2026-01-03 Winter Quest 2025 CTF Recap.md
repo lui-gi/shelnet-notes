@@ -4,7 +4,7 @@
 ### Wireshark
 - multiple .pcap files to parse through
 - utilized "follow stream" to analyze network conversations
-- discovered messages embedded in images via export objects
+- discovered messages embedded in images via export objects (see [[2026-01-05 Steganography CTF Techniques|steganography]])
 - discovered hidden messages using CTRL + F within packet contents
 ### Powershell (later used Kali Linux VM -> bash)
 - used nano to review source code
@@ -23,7 +23,7 @@
 - XSS - what it is, how to identify it, how to protect against it
 - Obfuscation - how to identify different types of obfuscation, how to DEAL with those types
 - Networking Layers - review OSI Model; understand switch vulnerabilities
-- Review OWASP Top Vulnerabilities
+- Review OWASP Top Vulnerabilities (see [[2026-01-17 Security+ Security Controls|security controls]])
 
 ## Final Thoughts
 Overall, this was an amazing experience and I was so glad I was able to participate and dive straight into hands-on challenges. This was my first CTF **competition**, and I had way more fun that I thought. 

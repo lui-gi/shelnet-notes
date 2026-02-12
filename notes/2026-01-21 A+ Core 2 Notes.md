@@ -299,7 +299,7 @@ the first 512-byte sector on the hard disk is ALWAYS THE MBR
 
 • if that is broken, use /fixmbr
 
-Cross-site scripting vs. SQL Injection
+Cross-site scripting vs. SQL Injection (see [[2026-01-17 Security+ Security Controls|Security+ controls]] for defense strategies)
 
 Cross site scripting: malicious scripts are injected into trusted websites, attacker uses web app to send malicious code in browser side script to a different end-user
 
@@ -307,7 +307,7 @@ SQL: code injection that attacks data-driver applications, SQL statements are in
 
 • the SQL statement is inserted into an entry field, usually dumping database contents to attacker
 
-Kerberos
+Kerberos (see [[2026-02-11 PGP  Lookup|encryption and key management]] for more on cryptographic authentication)
 
 a network authentication protocol that allows devices to prove their identity over a non-secure network
 
