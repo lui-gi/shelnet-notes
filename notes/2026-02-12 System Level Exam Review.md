@@ -33,7 +33,7 @@
 ### system programming
 - benefits of ^
 - system programs vs. system calls
-- exampels of system programs, calls
+- examples of system programs, calls
 - difference between software component and software categories
 - unix philosophy
 - unix attributes/advantages
