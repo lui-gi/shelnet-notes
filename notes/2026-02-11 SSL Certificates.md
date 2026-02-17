@@ -2,7 +2,7 @@
 
 ## What is SSL?
 **Secure Sockets Layer**
-- security protocol that creates an encrypted link between a web server and browser (see also [[2026-02-11 PGP  Lookup|PGP encryption]])
+- security protocol that creates an encrypted link between a web server and browser (see also [[2026-02-11 PGP Lookup|PGP encryption]])
 - ensures that all data passed between them remains private
 - technically succeeded by TLS (Transport Layer Security) even though the term 'SSL' is still widely used 
 

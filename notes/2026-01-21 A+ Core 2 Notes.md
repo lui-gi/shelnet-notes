@@ -307,7 +307,7 @@ SQL: code injection that attacks data-driver applications, SQL statements are in
 
 • the SQL statement is inserted into an entry field, usually dumping database contents to attacker
 
-Kerberos (see [[2026-02-11 PGP  Lookup|encryption and key management]] for more on cryptographic authentication)
+Kerberos (see [[2026-02-11 PGP Lookup|encryption and key management]] for more on cryptographic authentication)
 
 a network authentication protocol that allows devices to prove their identity over a non-secure network
 
