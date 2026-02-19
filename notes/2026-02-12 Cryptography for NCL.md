@@ -92,3 +92,47 @@ hzuvob lyerlfh xzev
 - .... . / ... . -.-. .-. . - / --- ..-. / --. . - - .. -. --. / .- .... . .- -.. / .. ... / --. . - - .. -. --. / ... - .- .-. - . -.. / ... -.- -.-- / -.. -.- ...- -... / ----. ---.. .---- -....
 ```
 - morse code
+
+
+`Y ln xkv lubj swlzqvkht, A vmzb pjk bbua we ddgs ILQ-GQYU-8026` 
+- vignere decode, use given key to decode
+- characteristics:
+- shifts with every letter
+
+F daS-eefn n KZ3eheadty.YI8lta oiwy-Q0. r aI2
+- rail fence decode (given key)
+
+## RSA Math Scratch
+
+```
+n = 1079
+e = 43
+c = 996 894 379 631 894 82 379 852 631 677 677 194 893
+```
+
+-> remember n = pq
+
+`c = m^e (mod n)`
+```
+c` = m^e` (mod n`)
+996 ... = m^43 (mod 1079)
+```
+
+find p: (smaller prime)
+`n/q` = 13
+
+q, larger prime = 83
+
+```
+n = 1079
+1079 = (13)(83)
+
+```
+
+https://www.cs.drexel.edu/~popyack/Courses/CSP/Fa17/notes/10.1_Cryptography/RSA_Express_EncryptDecrypt_v2.html
+
+https://www.dcode.fr/rsa-cipher
+
+- used dcode.fr to get d values as well as p,q
+- used drexel to decrypt integer ciphertext
+
