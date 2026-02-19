@@ -30,7 +30,9 @@ Common commands:
 - `u` undo
 - `:1,3t 10` copies/transfers lines 1 to 3 and pastes them after line 10 ==(does not overwrite)==
 - `:5,10m 15` moves lines 5 to 10 after line 15
-- `start,ends/pattern/replacement/flags` replaces 'foo' with 'bar' in lines 1 to 10; g means global; s means substitute
+- `start,ends/pattern/replacement/flags` 
+- `1,10s/foo/bar/g`
+- replaces 'foo' with 'bar' in lines 1 to 10; g means global; s means substitute
 - `:noh` remove highlight (no highlight)
 - `:n` go to line number n
 - `:$` last line
