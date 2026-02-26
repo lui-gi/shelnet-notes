@@ -253,3 +253,9 @@ Comparisons: blt (branch if less than); bge (branch if greater than)
 
 **Unconditional Jumps (J and I Type)**
 jumps can happen without condition; they link the `ra` (return addr) so the hardware knows where to go back to once subroutine finishes
+
+What does `jal` do? How does it differ from `j`?
+- It calls a function and saves (links) the return address `ra`
+- this means we can use `jr` (jump register) to return to the caller
+- `j` is for when we do not need to return, equivalent to `ja x0, label`
+  
