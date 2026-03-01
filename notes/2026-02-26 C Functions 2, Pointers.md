@@ -214,12 +214,61 @@ test()
 
 ```
 
+## Variable Scope
+imagine all instances of i(num) is just i
+```
+int i1;
+void f(int i2) 
+{
+	i2 = 1
+}
+
+void g(void)
+{
+	int i3 = 2;
+	if(i4 > 0)
+	{
+		i4 = 3;
+	}
+	i3 = 4;
+}
+
+void h(void)
+{
+	i1 = 5;
+}
+```
+
+```
+int i = 1;
+void f(void)
+{
+	int j = 1; (j = 1, using global i)
+	print j
+	int i = 2
+	j = i;
+	print j (prints 2, using local i)
+}
+```
+- this code is legal
+- initial j = 1, final j = 2
+
 ## Pointers 
 How do variables store in memory?
 - main mem is divided into bytes
 - each byte has a unique address
 - each variable occupies one or more memory
 - the address of the first byte is said to be the address of the variable
+
+**Memory**
+`[ 1000 | 1001 | 1002 | 1003 | ...        ]`
+int i = 4;
+i reserves 4 bytes (bc i is an int)
+reserves 1000 to 1003 inclusive
+- address of i = 1000 because we are given the address of the first byte
+- thus `&i = 1000`
+
+```
 
 ## Pointer Variable
 ex:
