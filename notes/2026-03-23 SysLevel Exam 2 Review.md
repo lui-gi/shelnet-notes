@@ -193,3 +193,132 @@ start
 
 end
 ```
+
+### Functions
+
+Scratch work
+```
+#include 
+int x = 10;
+
+void change() {
+    static int x = 5;
+    x++;
+    printf("%d ", x);
+}
+
+int main() {
+    change();
+    change();
+    printf("%d", x);
+    return 0;
+}
+
+start
+global x = 10
+local x = 5
+local x = 6
+local x = 7
+end
+
+// Call-by-ADDRESS
+void increment(int *n) {
+    (*n)++;
+}
+int main() {
+    int a = 10;
+    increment(&a);
+    printf("%d", a); --> 11
+    
+}
+
+// Call-by-VALUE
+void increment(int n) {
+    n++;
+}
+int main() {
+    int a = 10;
+    increment(a);
+    printf("%d", a); --> 10
+}
+```
+
+**Global variables vs. Local variables**
+- global variables are auto-initialized to 0
+- local variables are not auto-initialized, they contain garbage unless explicitly set
+
+### Pointers 
+
+Scratch work
+```
+int i = 1, j = 2, *p = &i, *q = &j;
+p = q;
+
+p -> i[1]
+q -> j[2]
+p = q -> j[2]
+*p = 2
+
+int i = 1, j = 2, *p = &i, *q = &j;
+*p = *q;
+p -> i[1], q -> j[2]
+i = j
+i = 2
+
+p = q
+p -> q -> x
+*q = new
+*p = ?
+
+int i = 1, j = 2, *p = &i, *q = &j;
+*q = *p;
+p -> i, q -> j
+j = i = 1
+
+int i = 3, *p = &i, *q = p;
+p -> i, q -> p -> i
+*p = 7;
+*p = i = 7
+q -> p -> i[7]
+
+int i = 5, *p = &i, j = *p;
+p -> i
+j = i = 5
+```
+
+`printf("%p", &x)` -> prints address of x
+
+### Pointers as args
+
+Scratch work
+```
+void f(int *p) { 
+	*p = 10; 
+}
+int main() {
+    int x = 1;
+    f(&x);
+    printf("%d", x);
+}
+p -> x = 1
+x = 10
+
+prints 10
+```
+
+Given void `f(const int *p)`, what operation is legal?
+- `p = &j`and `p++` is legal
+- `*p = 0, (*p)++` are all illegal
+`const int *p` means that the POINTED-TO value is read-only, you cannot modify it
+- however, the actual pointer variable is not constant, so we can reassign p to point somewhere else
+
+Given void `f(int * const p)`, what operation is legal?
+- `*p = 5` is legal
+- `p = &j, p++, p = null` are all illegal
+
+Tip: read it right-to-left, as such:
+- p is a pointer to integer that is constant
+- p is a constant pointer to an integer
+
+Returning `&a` from a function is dangerous if `a` is a local int within that function
+- why? -> `a` ceases to exist after return
