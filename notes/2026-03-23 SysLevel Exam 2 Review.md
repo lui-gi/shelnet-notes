@@ -322,3 +322,92 @@ Tip: read it right-to-left, as such:
 
 Returning `&a` from a function is dangerous if `a` is a local int within that function
 - why? -> `a` ceases to exist after return
+
+### 2D Arrays w/ Pointers
+
+Scratch work
+```
+int a[2][3] = {{1, 2, 3}, {4, 5, 6}};
+int *p = &a[0][0];
+printf("%d", *(p + 4));
+
+start
+print 5
+end
+
+int a[] = {10, 20, 30};
+int *p = a;
+printf("%d", *(p + 1));
+
+start
+
+end
+```
+
+if `int a[5];`, the statement `*a = 7` modifies `a[0]`
+
+Is `a++` legal assuming `int a[10]` is the declaration?
+Ans: No
+Why: Because `a` is an array name and therefore not a modifiable value, we cannot increment `a` directly. in order to increment with ++, we assign `int *p = a; p++;`
+
+**Q3.** After `p += 4` in the setup below, where does `p` point?
+```
+int a[3][4];
+int *p = &a[0][0];
+p += 4;
+```
+Ans: `a[1][0]`
+Why: `a[0][0 + 4 positions] -> a[0][5], overflow -> a[1][0]`
+
+
+**Q6.** In a row-pointer loop where `p` is of type `int (*)[N]`, what does `(*p)[i] = 0` clear?
+Ans: Column i of the current row
+Why: since p points to an entire row, `*p` gives the row itself
+
+### Array as a Pointer
+
+Scratch work
+```
+
+```
+
+**Q2.** Given `int a[5];`, the statement `*(a+2) = 13;` modifies which element?
+
+What is the difference between the below:
+`int find(int a[], int n);`
+`int find(int *a, int n);`
+Ans: 
+
+**Q4.** After `int a[5]; int *p = a;`, the expression `p[3]` is equivalent to?
+Ans: `p[n]` is equivalent to `*(p+n)`, thus `p[3] == *(a+3)
+
+**Q5.** The two function signatures below are:
+
+```
+int find(int a[], int n);
+int find(int *a, int n);
+```
+Ans: Equivalent
+Why: Because arrays are passed as pointers in functions
+
+### Pointer Arithmetic
+
+Scratch work
+```
+int a[8];
+int *p = &a[2];
+int *q = p + 3;
+
+start
+q -> a[5]
+end
+
+int a[8];
+int *p = &a[6];
+int *q = p - 3;
+
+
+```
+
+**Q6.** Given `int a[8]; int *p = &a[1], *q = &a[5];` — is the expression `p < q` true?
+Ans: yes
