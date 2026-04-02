@@ -196,3 +196,208 @@ inventory[i].number = 883; // assign 883 to the number member of inventory at it
 
 inventory[i].name = "Disk Drive"; // assign "Disk Drive" to the name member of inventory[i]
 ```
+
+## Nested Structures
+
+structure within a structure
+
+example (person_name within student)
+```
+struct person_name {
+	char first[]
+	char middle[]
+	char last[]
+}
+
+struct student {
+	struct person_name name;
+	int id, age;
+	char sex;
+} student1, student2;
+
+strcpy(student1.name.first, "Fred");
+```
+
+## Unions
+
+A union, like a structure, consists of one or more members
+
+The difference is that compiler allocates ==only enough space for the largest of the members in a union==
+
+The members of the union overlay each other within this space
+
+Assigning a new value to one member alters the values of all the other members as well
+- why? because 
+
+example
+```
+union student {
+	char name[];
+	int age;
+	int roll;
+};
+
+union student std;
+std.age = 30;
+(thust std.roll also = 30)
+
+strcpy(std.name, "Barack Obama");
+std.age = 10;
+std.name = ? --> UNDEFINED + parts of "Barack Obama", assuming null terminator comes later
+
+allocated 4 bytes only
+```
+
+
+## Using Unions to Save Spaces
+
+```
+Books: Title, author, number of pages
+Mugs: Design
+Shirts: Design. colors available, sizes available
+```
+
+```
+struct catalog item {
+	int stock_number
+	float price
+	char title[len + 1]
+	char author[len + 1]
+	int num_pages
+	char design[len + 1]
+	int colors;
+	int sizes;
+}
+```
+
+wasting memory space bc we now allocate memory space of unneeded members
+
+thus, here is the fix to save memory:
+```
+struct catalog_item {
+	int stock_numer;
+	float price;
+	int item_type;
+	union {
+		struct {
+			char title[len + 1]
+			char author[len + 1]
+			int num_pages
+		} book;
+		struct {
+			char design[len + 1]
+		} mug;
+		struct {
+			char design[len + 1]
+			int colors;
+			int sizes;
+		} shirt;
+	} item;
+};
+```
+
+On the outer block are the shared members, which are the stock_number, price, and the item_type
+
+then we use union to save space of the unique members
+
+how much bytes does one catalog_item take up at assuming len + 1 = 10 bytes?
+-> 36 bytes
+
+Example Question:
+```
+int main()
+{
+	union {
+		int i1;
+		int i2;
+	} myVar = {.i2, = 100};
+	
+	printf("%d %d", myVar.i1, myVar.i2);
+	
+	return 0;
+	
+
+}
+```
+
+## Enumerations
+
+Assume a variable that stores the suit of a playing card having only four potential values: "clubs", "diamonds", "hearts", and "spades"
+
+```
+Solution 1:
+int s; (s will store suit)
+s = 2; (where 2 represents hearst)
+```
+
+```
+Solution 2:
+#define SUIT int
+#define CLUBS 0
+#define DIAMONDS 1
+#define HEARTS 2
+#define SPADES 3
+```
+
+now our previous example will become easier to read
+```
+SUIT S;
+S = HEARTS;
+```
+
+thus,
+
+an enumeration is a type whose values are listed (ENUMERATED) by the programmer
+
+each value has name defined by the programmer
+
+example below
+```
+enum {CLUBS, DIAMONDS, HEARTS, STPADES} s;
+
+int i;
+i = DIAMONDS; /* i is now 1 */
+s = 0; /* s is now 0 clubs */
+s++; /* s is now 1 diamonds */
+i = s + 2; /* i is now 3 */
+```
+
+example, we can give tag name to enum data type
+```
+enum colors {BLACK, LT_GRAY = 7, DK_GRAY, WHITE = 15};
+
+enum colors c;
+black = 0, dark gray = 8
+```
+IMPORTANT ^ notice the DK_GRAY indexing
+
+Enum Exercise
+```
+struct point {
+	int x;
+	int y;
+};
+
+struct rectangle {
+	struct point upper_left, lower_right;
+};
+```
+Task ^: write function that computes the area of a rectangle structure passed as an argument
+
+Enum Exercise Ans:
+```
+struct recrangle r;
+r.upper_left.x = 30;
+r.upper_left.y = 50
+r.lower_left.x = 50;
+r.lower_right.y = 20;
+
+int compute_area(struct rectangle r)
+{
+	int length, width;
+	length = ;
+	width = ;
+	return;
+}
+```
+
