@@ -228,3 +228,11 @@ misc. flags:
 - O_EXCL: if O_CREAT is set and file exists then open() fails (O_CREATE | O_EXCL are used together, open will create the file only if it does not already exist)
 - O_NONBLOCK: for named pipes (file-like interface for IPC)
 - O_TRUNC: if file exists it is truncated to length 0 -> opens file, it exists, truncates ALL existing contents
+
+## Open() Example
+`tmpfd = open(tmpName, O_CREAT | O_RDWR, 0600);`
+the file should be created if it doesn't exist
+it should be opened in read-write mode
+only read-write permissions for the user
+
+- ``
