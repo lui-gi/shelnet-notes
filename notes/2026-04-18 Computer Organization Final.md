@@ -740,9 +740,26 @@ I4:                    IF   ID   EX   MEM  WB
 **Issues with CPU Pipelining**
 - `Hazards`: conflicts due to pipelining
 - there are three types of hazards
-- `Structural`: two instructions need the 
-- `Data`
-- `Control`
+- `Structural`: two instructions need the same hardware
+- `Data`: instructions needs result that isn't ready yet
+- `Control`: branch outcome is not known yet
+
+**Structural Hazard**
+- two instructions need the same component at the same time
+- Example: two instructions both need data memory simultaneously
+- Solution: design hardware with separate instruction memory and data memory so they don't conflict
+
+**Data Hazard**
+- most common one; an instruction depends on the result of a previous instruction that has not finished yet
+Example:
+```
+Cycle:  1    2    3    4    5    6    7
+I1:     IF   ID   EX   MEM  WB
+I2:          IF   ID   --   --   EX   ...  ← stalled
+```
+
+Two Solutions:
+- `Stalling`: insert a bubble, aka NOP (no operation) to wait
 
 **Concept Overview:**
 NON-pipelined CPU simply executes one instruction `FULLY` before starting the next. 
