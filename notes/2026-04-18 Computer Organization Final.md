@@ -581,7 +581,159 @@ Practice
 more correct -> ALU subtracts A - B; if the result is 0, Zero flag=1; CPU then checks the zero flag to decide whether to branch
 ```
 
+
+## Single-Cycle Datapath and CPU Control
+
+-> How does the CPU actually execute an instruction from start to finish?
+- the single-cycle datapath: the full path an instruction travels through the CPU (from the moment it is fetched to the moment the result is written)
+
+**Instruction: 5 Stages**
+```
+1. Instruction Fetch - IF
+2. Instruction Decode - ID
+   
+3. Execute - EX
+
+4. Memory Access - MEM
+   
+5. Write Back - WB
+```
+
+**Stages Explained**
+```
+| Stage | What happens                          | Key component        |
+|-------|---------------------------------------|----------------------|
+| IF    | Fetch the instruction from memory     | PC, Instruction Memory|
+| ID    | Decode the instruction, read registers| Register File, Control Unit|
+| EX    | Perform the operation                 | ALU                  |
+| MEM   | Read or write data memory             | Data Memory          |
+| WB    | Write result back to register file    | Register File        |
+```
+
+**Single Cycle**
+- in a single cycle CPU, one instruction completes all 5 stages in one clock cycle
+- clock cycles must be long enough for the slowest instruction to finish
+
+**Practice**
+```
+lw t0, 0(s0)   # load word: read memory at address s0+0, store in t0
+
+**Q1.** What happens at the IF stage for this instruction?
+-> the instruction for lw using two registers is loaded from the computer's memory
+-> more corect -> the instruction is fetched from instruction memory using the PC
+
+**Q2.** What happens at the EX stage? What does the ALU compute?
+-> at the EX stage, ALU computes base address + offset to get the memory address
+-> it does not load the value yet. that is the job for MEM
+
+**Q3.** What happens at the MEM stage?
+-> at the MEM stage, the value at 0(s0) is read.
+
+**Q4.** What happens at the WB stage?
+-> the value of 0(s0) is written to t0
+
+**Q5.** Does a `sw` (store word) instruction use the WB stage? Why or why not?
+-> no, because sw stores given values in memory, not to a register
+```
+
+```
+add t0, t1, t2   # t0 = t1 + t2
+
+**Q1.** What does the ALU compute at EX?
+-> The ALU computes t1 + t2 = new value to store into t0
+
+**Q2.** Does this instruction use the MEM stage? Why or why not?
+-> no, no data is being read from memory. we are only working with registers
+
+**Q3.** Where does the result end up at WB?
+-> WB writes the value computed by the ALU into register t0
+
+Key:
+lw  → uses ALU (address calc) + MEM (read) + WB (write to register)
+sw  → uses ALU (address calc) + MEM (write) — skips WB
+add → uses ALU (compute)— skips MEM + writes result at WB
+beq → uses ALU (subtract) — skips MEM and WB
+```
+
+**The Control Unit**
+- brain of the CPU
+- looks at opcode of the instruction and generates control signals that tell every component what to do
+
+```
+| Signal   | What it controls                              |
+|----------|-----------------------------------------------|
+| RegWrite | Should we write to a register? (WB stage)     |
+| MemRead  | Should we read from data memory? (MEM stage)  |
+| MemWrite | Should we write to data memory? (MEM stage)   |
+| MemToReg | Should WB come from memory or ALU result?     |
+| ALUSrc   | Should ALU use a register or immediate value? |
+| Branch   | Is this a branch instruction?                 |
+```
+
+Practice
+```
+| Signal   | add | lw | sw | beq |
+|----------|-----|----|----|-----|
+| RegWrite | ?   | ?  | ?  | ?   |
+| MemRead  | ?   | ?  | ?  | ?   |
+| MemWrite | ?   | ?  | ?  | ?   |
+| MemToReg | ?   | ?  | ?  | ?   |
+| Branch   | ?   | ?  | ?  | ?   |
+
+Use 1 for yes/active and 0 for no/inactive. Think through each instruction's datapath and reason it out.
+
+<--------- Ans -------->
+| Signal   | add | lw | sw | beq |
+|----------|-----|----|----|-----|
+| RegWrite | 1   | 1  | 0  | 0   |
+| MemRead  | 0   | 1  | 0  | 0   |
+| MemWrite | 0   | 0  | 1  | 0   |
+| MemToReg | 0   | 1  | 0  | 0   |
+| Branch   | 0   | 0  | 0  | 1   |
+
+Note: lw rd, 0(rs1)
+yes, 2 registers, but one register contains a memory address, which is why MemRead uses lw
+
+Corrected:
+RegWrite = 1 → result goes TO a register (add, lw)
+MemRead  = 1 → we READ from memory (lw only)
+MemWrite = 1 → we WRITE to memory (sw only)
+MemToReg = 1 → value coming from memory, not ALU (lw only)
+Branch   = 1 → beq only
+
+For a `sw` instruction — which signals are active and which are not, and why?
+-> MemWrite only
+-> sw doesn't write to register, RegWrite = 0
+-> sw doesn't read from memory, MemRead = 0
+-> sw DOES write to memoery, MemWrite = 1
+-> no val going to reg, MemToReg = 0
+-> no branching, Branch = 0
+
+```
+
+
 ## CPU Pipelining
+**Why CPU pipelining?**
+- single-cycle has problems
+- ^ single-cycle CPU, while instruction 1 is at the EX stage,  the IF, ID, MEM, and WB hardware is idle
+- being idle = being wasteful
+- `pipelining fixes this by overlapping instruction execution`
+
+**CPU Pipelining Core Idea**
+- like a car wash with 5 stations
+- rather than waiting for one car to finish all 5 stations before the next car enters, we push a new car into station 1 as soon as the previous car moves to station 2
+- see below for visual
+```
+Cycle:  1    2    3    4    5    6    7
+I1:     IF   ID   EX   MEM  WB
+I2:          IF   ID   EX   MEM  WB
+I3:               IF   ID   EX   MEM  WB
+I4:                    IF   ID   EX   MEM  WB
+```
+- thus, every cycle, a new instruction enters the pipeline, so all 5 stages are busy simultaneously
+
+**Benefit of CPU Pipelining**
+
 
 **Concept Overview:**
 NON-pipelined CPU simply executes one instruction `FULLY` before starting the next. 
