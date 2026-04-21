@@ -733,7 +733,16 @@ I4:                    IF   ID   EX   MEM  WB
 - thus, every cycle, a new instruction enters the pipeline, so all 5 stages are busy simultaneously
 
 **Benefit of CPU Pipelining**
+- pipelining improves `throughput`
+- (how many instructions finish per unit time)
+- does NOT make any single instruction faster
 
+**Issues with CPU Pipelining**
+- `Hazards`: conflicts due to pipelining
+- there are three types of hazards
+- `Structural`: two instructions need the 
+- `Data`
+- `Control`
 
 **Concept Overview:**
 NON-pipelined CPU simply executes one instruction `FULLY` before starting the next. 
