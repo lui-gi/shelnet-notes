@@ -183,9 +183,403 @@ Answer:
 
 ## Logic Circuits and Combinational Logic
 
+### Priming Quiz
+```
+**Q1.** What does this truth table represent?
+
+|A|B|Output|
+|---|---|---|
+|0|0|0|
+|0|1|0|
+|1|0|0|
+|1|1|1|
+
+What logic gate is this?
+-> AND
+
+**Q2.** A **multiplexer** has 4 inputs and 1 output. What does it do?
+-> MUX is a selector. It picks one input to pass through
+
+**Q3.** What is the difference between a **half adder** and a **full adder**?
+-> Half adder: , Full Adder:
+
+**Q4.** In one sentence — what does an **ALU** do?
+-> An ALU performs arithmetic and logic operations (addition, subtraction, AND, OR, comparisons, etc.)
+
+**Q5.** If I give you the expression `F = A AND B`, and A=1, B=0 — what is F?
+-> 0
+
+```
+
+### Logic Gates
+
+**AND**
+```
+|A|B|Output|
+|---|---|---|
+|0|0|0|
+|0|1|1|
+|1|0|1|
+|1|1|1|
+```
+- Output is 1 when both inputs are 1
+- Output is 0 otherwise
+
+**OR**
+- Output is 1 when at least one input is 1
+
+**NOT**
+- Flips the input
+- 1 -> 0
+- 0 -> 1
+
+**NAND**
+- AND, THEN flip the output
+
+**XOR**
+- Output is 1 when the inputs are different
+
+### Components n stuff
+
+**Half Adder**
+- does one thing: adds two single bits together
+
+When we add two bits, we get two outputs
+- Sum: the result bit
+- Carry: the overflow bit (if it exceeds 1)
+
+Example
+```
+ 1
++1
+--
+10 <- 2 in binary.
+
+Sum = 0
+Carry = 1
+```
+
+Truth Table
+```
+### The Truth Table
+
+|A|B|Sum|Carry|
+|0|0|0  |0    |
+|0|1|1  |0    |
+|1|0|1  |0    |
+|1|1|0  |1    |
+
+What gate produces the Sum output?
+-> XOR
+
+What gate produces the Carry output?
+-> AND
+
+Using the two gates, what is the output of a half adder when A = 1; B = 0?
+-> Sum = 1 XOR 0 = 1
+-> Carry = 1 AND 0 = 0
+```
+
+Remember pls:
+`SUM = A XOR B`
+`CARRY = A AND B`
+
+**Full Adder**
+- half adder can only add `two` bits
+- issue with ^ is that binary addition chains multiple columns together
+- each column can receive a `carry-in` from the column to its right
+
+Thus, a `Full Adder` adds `three bits`: `A`, `B`, and `Cin` (carry-in)
+- Still produces two outputs: `Sum` and `Cout` (carry-out)
+- it is literally two `half adders` chained together with an `OR` gate for the carry
+
+```
+### Truth Table
+
+|A|B|Cin|Sum|Cout|
+|0|0|0  |0  |0   |
+|0|0|1  |1  |0   |
+|0|1|0  |1  |0   |
+|0|1|1  |0  |1   |
+|1|0|0  |1  |0   |
+|1|0|1  |0  |1   |
+|1|1|0  |0  |1   |
+|1|1|1  |1  |1   |
+
+**Q1.** Using the truth table, what is the output when A=1, B=1, Cin=1?
+-> SUM = 1
+-> Cout = 1
+
+**Q2.** Why can't a half adder handle multi-bit addition on its own?
+-> Because it has no carry-in bit, so it can't receive the overflow from a previous column
+
+**Q3.** If you were adding two 4-bit numbers, how many full adders would you need?
+-> Two full adders WRONG
+Correct --> we need 4 ADDERS, 1 can be either full or half,
+reason is because 4 bits means 4 columns to add; columns 2+ need a carry-in from the previous column
+
+Column:   4    3    2    1
+         FA   FA   FA   HA
+          ↑    ↑    ↑
+         Cout→Cin Cout→Cin Cout→Cin
+         
+Chain = ripple carry adder
+
+```
+
+Full Adder Build
+```
+Half Adder 1
+A XOR B = intermediate sum (S1)
+A AND B = intermediate carry (C1)
+
+Half Adder 2
+S1 XOR Cin = final sum
+S1 AND Cin = intermediate carry (C2)
+
+Final Cout
+C1 OR C2 = Cout
+
+Example [A = 1, B = 0, Cin = 1]
+
+Half Adder 1
+1 XOR 0 = 1 = S1
+1 AND 0 = 0 = C1
+
+Half Adder 2
+1 XOR 1 = 0 = final sum
+1 AND 1 = 1 = C2
+
+Final Cout
+0 or 1 = 1 = Cout
+```
+- `Sum = XOR -> XOR`
+- `Cout = AND + AND -> OR`
+
+**Multiplexer**
+- Selector switch; takes multiple inputs and uses a select signal to choose exactly ONE to pass through to the output
+- kinda like a TV remote: many channels (inputs), whatever number we select determines what shows up on screen (output)
+
+MUX Structure:
+- Basic 2-1 MUX has
+- 2 data inputs - I0, I1
+- 1 select line - S
+- 1 output - Y
+
+```
+| S | Y |
+|---|---|
+| 0 | I0 |
+| 1 | I1 |
+```
+- S = 0 picks I0, S = 1 picks I1
+```
+4-to-1 MUX | 4 inputs, 2 select lines (2 bits are neede to represent 4 choices)
+
+| S1 | S0 | Y  |
+|----|----|----|
+| 0  | 0  | I0 |
+| 0  | 1  | I1 |
+| 1  | 0  | I2 |
+| 1  | 1  | I3 |
+
+```
+- the select lines = a binary number pointing to which input wins
+
+Practice
+```
+You have a 4-to-1 MUX with these inputs:
+I0 = 0
+I1 = 1
+I2 = 0
+I3 = 1
+
+**Q1.** What is the output when S1=0, S0=1?
+-> Y = I1
+
+**Q2.** What is the output when S1=1, S0=1?
+-> Y = I3
+
+**Q3.** In your own words — what is the job of the select lines?
+-> The job of the select lines is to determine which single input gets passed through to the output
+
+```
+
+
 **Decoder**
-- takes an N-bit input, activates `exactly one` of `2^N` output lines
-- 
+- opposite of the MUX
+- instead of selecting one input to pass through, it takes a single binary input and activates exactly one of many outputs
+- kinda like a hotel elevator: we press floor 3 (input) and only floor 3's door opens (output), everything else stays closed
+
+Decoder Structure
+- a 2-to-4 decoder has
+- 2 input lines - A and B
+- 4 output lines, O0, O1, O2, O3
+- exactly one output is 1 at a time, the rest have to be 0
+```
+Table
+
+| A | B | O0 | O1 | O2 | O3 |
+|---|---|----|----|----|-----|
+| 0 | 0 | 1  | 0  | 0  | 0  |
+| 0 | 1 | 0  | 1  | 0  | 0  |
+| 1 | 0 | 0  | 0  | 1  | 0  |
+| 1 | 1 | 0  | 0  | 0  | 1  |
+```
+- input AB is just a binary number pointing to which output fires
+
+`N inputs -> 2^N outputs always`
+```
+2 inputs → 4 outputs
+3 inputs → 8 outputs
+4 inputs → 16 outputs
+```
+
+Practice
+```
+**Q1.** A decoder has 3 input lines. How many output lines does it have?
+-> 3 inputs = 2^3 outputs = 8 outputs
+
+**Q2.** Using the 2-to-4 truth table above, which output is active when A=1, B=0?
+-> 10 = 2 = O2
+
+**Q3.** What is the key difference between a MUX and a Decoder?
+-> MUX determines which single input gets mapped to the output, but the decoder takes the single binary input and activates the one output
+```
+
+
+**Comparator**
+- takes two binary inputs, tells us their relationship
+- it tells us if A = B, A > B, A < B
+- exactly one of those outputs is 1 at any given time
+
+Comparator Structure
+- 1 bit comparator has
+- 2 inputs: A, B
+- 3 outputs: EQ (equal), GT (greater than), LT (less than)
+
+```
+| A | B | EQ | GT | LT |
+|---|---|----|----|----|
+| 0 | 0 | 1  | 0  | 0  |
+| 0 | 1 | 0  | 0  | 1  |
+| 1 | 0 | 0  | 1  | 0  |
+| 1 | 1 | 1  | 0  | 0  |
+```
+
+Comparator Gate Logic
+- `EQ = XNOR(A,B) -> when both inputs are the same` | XNOR is just XOR flipped, outputs 1 when inputs are equal, 0 otherwise
+- `GT = A AND NOT(B) -> 1 when A=1 and B-0`
+- `LT = NOT(A) and B -> when A=0 and B=1`
+
+Practice
+```
+**Q1.** What are the EQ, GT, LT outputs when A=1, B=0?
+-> EQ = 0, GT = 1, LT = 0
+
+**Q2.** What gate computes the EQ output and why does it make sense?
+-> XNOR(A,B), this makes sense because this gate returns 1 if A and B are the same value
+
+**Q3.** A branch instruction `blt a0, a1, label` branches if a0 < a1. Which comparator output does this rely on?
+-> LT
+```
+
+**Register**
+- stores bits over time, unlike the previous components (inputs -> outputs)
+- has memory
+- writes values, values stay until explicitly changed
+
+How registers work:
+- built from flip-flops; these store exactly 1 bit
+- chain 32 flip flops -> 32 bit register
+
+Register have:
+- D - data input (what we want to store)
+- Q - data output (what's currently stored)
+- CLK - clock signal (controls WHEN data gets written)
+- Write Enable  | WE - controls IF data gets written
+
+```
+| WE | CLK edge | What happens       |
+|----|----------|--------------------|
+| 0  | ↑        | Q holds old value  |
+| 1  | ↑        | Q updates to D     |
+```
+
+Edge Triggered
+- register only updates on the rising edge of the clock (when CLK goes from 0 to 1)
+- register not updated continuously, only @ that one moment per cycle
+- one clock tick at a time, keeps updates in sync
+
+Registers in the CPU
+- register file in RISC V: `x0-x31`: `32 registers`
+- Program Counter | PC - a register
+- pipeline stages use registers to hold values between stages
+
+Practice
+```
+**Q1.** A flip-flop stores 1 bit. How many flip-flops do you need for a 32-bit register?
+-> 32 bits
+
+**Q2.** If WE=0, what happens to Q when the clock ticks?
+-> Q does not change
+
+**Q3.** Why does a register need a clock signal but a MUX does not?
+-> Registers need to be organized in order for the CPU to work properly. Thus, they have to abide by the clock ticks. However, combinational logic like MUX can output at whatever time without consequence.
+i.e. MUX is combinational -> output changes immediately with input, no timing needed
+Register -> sequential -> needs clock to control when state changes
+
+```
+
+**Arithmetic Logic Unit | ALU**
+- the calculator of the CPU
+- all arithmetic and logic operation the program needs runs thru the ALU
+- takes two inputs and a control signal that tells it what operation to perform, then produces one output 
+
+ALU Structure:
+- ALU has
+- A, B - two data inputs
+- ALU control - tells ALU which operation to perform
+- Result - output
+- Zero flag - a 1-bit output that is 1 when result=0 (for branch instructions)
+
+```
+| ALU Control | Operation  |
+|-------------|------------|
+| 0000        | AND        |
+| 0001        | OR         |
+| 0010        | ADD        |
+| 0110        | SUB        |
+| 0111        | SLT (set less than) |
+| 1100        | NOR        |
+
+ALU built with these:
+Full Adder  → handles ADD and SUB
+Comparator  → handles SLT and the Zero flag
+AND/OR gates → handle bitwise logic
+MUX         → selects which result to output based on control signal
+
++The control signal feeds into a MUX that picks which operation's result becomes the final output.
+```
+
+Zero Flag
+- after a subtraction,
+- A = B -> Result=0 -> Zero flag=1
+- `beq` checks if Zero=1 to decide whether to branch
+
+Practice
+```
+**Q1.** The ALU receives A=5, B=5, ALU Control = 0110 (SUB). What is the Result and what is the Zero flag?
+-> Result = 0
+-> Zero flag = 1
+
+**Q2.** Which internal component of the ALU selects which operation's result becomes the output?
+-> Multiplexer / MUX
+
+**Q3.** A `beq` instruction compares two registers. Which ALU operation does it actually perform under the hood, and why?
+-> it performs XNOR(x1,x2): this is the comparator EQ logic
+more correct -> ALU subtracts A - B; if the result is 0, Zero flag=1; CPU then checks the zero flag to decide whether to branch
+```
 
 ## CPU Pipelining
 
