@@ -751,6 +751,13 @@ I4:                    IF   ID   EX   MEM  WB
 
 **Data Hazard**
 - most common one; an instruction depends on the result of a previous instruction that has not finished yet
+```
+add t0, t1, t2    # t0 = t1 + t2
+add t3, t0, t4    # needs t0 — but t0 isn't written yet!
+```
+
+Two Solutions:
+- `Stalling`: insert a bubble, aka NOP (no operation) to wait
 Example:
 ```
 Cycle:  1    2    3    4    5    6    7
@@ -758,8 +765,50 @@ I1:     IF   ID   EX   MEM  WB
 I2:          IF   ID   --   --   EX   ...  ← stalled
 ```
 
-Two Solutions:
-- `Stalling`: insert a bubble, aka NOP (no operation) to wait
+- `Forwarding/Bypassing`: pass the result directly from the EX to the next instruction without waiting for WB
+```
+I1 EX result → forwarded directly to I2 EX input
+No stall needed
+```
+
+**Control Hazard**
+- a branch instruction's outcome isn't known until after EX, but the pipeline  has already fetched the next instructions
+```
+beq t0, t1, label   # do we branch or not?
+add t2, t3, t4      # already fetched — but should it run?
+```
+
+Control Hazard Solutions:
+- `Stalling`: wait until branch is resolved, insert bubbles
+- `Branch prediction`: guess which way the branch goes, flush if wrong
+
+Practice:
+```
+**Q1.** What is the difference between throughput and latency in the context of pipelining?
+-> Latency reduces the amount of time it takes to finish one instruction, whereas throughput allows more instructions to be executed in the same amount of time as it takes 1
+
+**Q2.** Identify the hazard type:
+
+lw  t0, 0(s0)
+add t1, t0, t2   # uses t0
+
+-> The hazard is data hazard: we need t0 but we are waiting for it to finish
+
+**Q3.** What is forwarding and why is it better than stalling?
+-> forwarding is taking the result from EX over to the next instruction rather than waiting for WB to finish executing. it is better than stalling because there is no idle time, though it is more complex
+
+**Q4.** Draw the pipeline diagram for 3 instructions over 7 cycles:
+I1, I2, I3
+
+Cycle:  1    2    3    4    5    6    7
+I1:     IF   ID   EX   MEM  WB
+I2:          IF   ID   EX   MEM  WB
+I3:               IF   ID   EX   MEM  WB
+
+```
+
+
+
 
 **Concept Overview:**
 NON-pipelined CPU simply executes one instruction `FULLY` before starting the next. 
